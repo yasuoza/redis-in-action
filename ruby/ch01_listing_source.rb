@@ -13,7 +13,7 @@ def article_vote(redis, user, article)
   end
 
   article_id = article.split(':', 2).last
-  if redis.sadd "voted:#{article_id}", user
+  if redis.sadd("voted:#{article_id}", user)
     redis.zincrby('score:', VOTE_SCORE, article)
     redis.hincrby(article, :votes, 1)
   end
